@@ -15,6 +15,11 @@ class _ChistesNavidadPageState extends State<ChistesNavidadPage> {
   void initState() {
     super.initState();
     chistesnavidad = fetchChistesNavidad();
+    chistesnavidad.then((chistes) {
+      for (var chiste in chistes) {
+        print(chiste);
+      }
+    });
   }
 
   void _refreshChistes() {
@@ -44,13 +49,8 @@ class _ChistesNavidadPageState extends State<ChistesNavidadPage> {
               itemBuilder: (context, index) {
                 return Card(
                   margin: const EdgeInsets.symmetric(vertical: 8),
-                  elevation: 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      chistes[index],
-                      style: const TextStyle(fontSize: 16),
-                    ),
+                  child: ListTile(
+                    title: Text(chistes[index]),
                   ),
                 );
               },
