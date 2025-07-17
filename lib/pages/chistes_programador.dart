@@ -1,65 +1,25 @@
 import 'package:flutter/material.dart';
-import '../services/apiconectionrandom.dart';
-import 'chistes_navidad.dart';
-import 'chistes_dark.dart';
-import 'chistes_programador.dart';
-import 'config.dart';
+import '../services/apiconectionprograming.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class ChistesProgramadorPage extends StatefulWidget {
+  const ChistesProgramadorPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5, 
-      child: Scaffold(
-        backgroundColor: const Color(0xFFE1BEE7),
-        appBar: AppBar(
-          title: const Text('Quick Jokes'),
-          backgroundColor: Colors.deepPurple,
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'Random'),
-              Tab(text: 'Navidad'),
-              Tab(text: 'Dark'),
-              Tab(text: 'Programador'),
-              Tab(text: 'Config'), 
-            ],
-          ),
-        ),
-        body: const TabBarView(
-          children: [
-            CardsList(),
-            ChistesNavidadPage(),
-            ChistesDarkPage(),
-            ChistesProgramadorPage(),
-            ConfigPage(),
-          ],
-        ),
-      ),
-    );
-  }
+  State<ChistesProgramadorPage> createState() => _ChistesProgramadorPageState();
 }
 
-class CardsList extends StatefulWidget {
-  const CardsList({Key? key}) : super(key: key);
-
-  @override
-  State<CardsList> createState() => CardsListState();
-}
-
-class CardsListState extends State<CardsList> {
+class _ChistesProgramadorPageState extends State<ChistesProgramadorPage> {
   late Future<List<String>> jokesFuture;
 
   @override
   void initState() {
     super.initState();
-    jokesFuture = fetchJokes();
+    jokesFuture = fetchProgrammingJokes();
   }
 
   void _refreshJokes() {
     setState(() {
-      jokesFuture = fetchJokes();
+      jokesFuture = fetchProgrammingJokes();
     });
   }
 
