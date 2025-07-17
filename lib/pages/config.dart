@@ -11,9 +11,6 @@ class ConfigPage extends StatefulWidget {
 }
 
 class _ConfigPageState extends State<ConfigPage> {
-  bool _option1 = false;
-  bool _option2 = false;
-  bool _option3 = false;
 
   StartPage _startPage = HomePageState.startPage;
 
