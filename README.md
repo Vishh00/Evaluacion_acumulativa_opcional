@@ -4,6 +4,8 @@ Esta aplicación te permite ver chistes aleatorios de distintas categorías usan
 Puedes navegar facilmente entre chistes de Navidad, chistes oscuros y chistes de programación gracias a los tabs, tambien contamos con un boton para refrescar la lista en cualquier momento.
 En configuraciones uno puede definir en que pagina desea que inicie la app al momento de abrirla.
 
+link video presentacion: https://youtu.be/KckK8VPkKE8
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
