@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'home.dart';
+import 'about.dart';
 
 class ConfigPage extends StatefulWidget {
   const ConfigPage({Key? key}) : super(key: key);
@@ -12,6 +15,39 @@ class _ConfigPageState extends State<ConfigPage> {
   bool _option2 = false;
   bool _option3 = false;
 
+  StartPage _startPage = HomePageState.startPage;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadStartPage();
+  }
+
+  Future<void> _loadStartPage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final index = prefs.getInt('startPage') ?? 0;
+    setState(() {
+      _startPage = StartPage.values[index];
+    });
+  }
+
+  Future<void> _setStartPage(StartPage? value) async {
+    if (value != null) {
+      setState(() {
+        _startPage = value;
+        HomePageState.setStartPage(value);
+      });
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('startPage', value.index);
+    }
+  }
+
+  void _openAboutPage() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const AboutPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,47 +57,65 @@ class _ConfigPageState extends State<ConfigPage> {
       ),
       backgroundColor: const Color(0xFFE1BEE7),
       body: Center(
-        child: Card(
-          margin: const EdgeInsets.all(24),
-          elevation: 6,
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'Preferencias',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Card(
+                margin: const EdgeInsets.all(24),
+                elevation: 6,
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Preferencias',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 24),
+                      const Text(
+                        'Página de inicio',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      RadioListTile<StartPage>(
+                        title: const Text('Random'),
+                        value: StartPage.random,
+                        groupValue: _startPage,
+                        onChanged: _setStartPage,
+                      ),
+                      RadioListTile<StartPage>(
+                        title: const Text('Navidad'),
+                        value: StartPage.navidad,
+                        groupValue: _startPage,
+                        onChanged: _setStartPage,
+                      ),
+                      RadioListTile<StartPage>(
+                        title: const Text('Dark'),
+                        value: StartPage.dark,
+                        groupValue: _startPage,
+                        onChanged: _setStartPage,
+                      ),
+                      RadioListTile<StartPage>(
+                        title: const Text('Programador'),
+                        value: StartPage.programador,
+                        groupValue: _startPage,
+                        onChanged: _setStartPage,
+                      ),
+                    ],
+                  ),
                 ),
-                CheckboxListTile(
-                  title: const Text('Opción 1'),
-                  value: _option1,
-                  onChanged: (value) {
-                    setState(() {
-                      _option1 = value ?? false;
-                    });
-                  },
+              ),
+              Card(
+                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                elevation: 4,
+                child: ListTile(
+                  leading: const Icon(Icons.info, color: Colors.deepPurple),
+                  title: const Text('Acerca de la app'),
+                  onTap: _openAboutPage,
                 ),
-                CheckboxListTile(
-                  title: const Text('Opción 2'),
-                  value: _option2,
-                  onChanged: (value) {
-                    setState(() {
-                      _option2 = value ?? false;
-                    });
-                  },
-                ),
-                CheckboxListTile(
-                  title: const Text('Opción 3'),
-                  value: _option3,
-                  onChanged: (value) {
-                    setState(() {
-                      _option3 = value ?? false;
-                    });
-                  },
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

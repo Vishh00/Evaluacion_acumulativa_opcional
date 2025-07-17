@@ -15,11 +15,6 @@ class _ChistesNavidadPageState extends State<ChistesNavidadPage> {
   void initState() {
     super.initState();
     chistesnavidad = fetchChistesNavidad();
-    chistesnavidad.then((chistes) {
-      for (var chiste in chistes) {
-        print(chiste);
-      }
-    });
   }
 
   void _refreshChistes() {
