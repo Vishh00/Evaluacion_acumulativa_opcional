@@ -47,19 +47,6 @@ class _ConfigPageState extends State<ConfigPage> {
       throw Exception('Could not launch $url');
     }
   }
-  /*
-  Future<void> _openLinkPage() async {
-     final Uri url = Uri.parse('https://v2.jokeapi.dev/');
-
-    if (await canLaunchUrl(url)) {
-      await launchUrl(
-        url,
-        mode: LaunchMode.externalApplication,
-      );
-    } else {
-    throw 'No se pudo abrir la página: $url';
-    }
-  }*/
 
   void _openAboutPage() {
     Navigator.of(context).push(
