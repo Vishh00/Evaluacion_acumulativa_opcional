@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'home.dart';
 import 'about.dart';
 
@@ -38,6 +39,27 @@ class _ConfigPageState extends State<ConfigPage> {
       await prefs.setInt('startPage', value.index);
     }
   }
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
+  /*
+  Future<void> _openLinkPage() async {
+     final Uri url = Uri.parse('https://v2.jokeapi.dev/');
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+    } else {
+    throw 'No se pudo abrir la página: $url';
+    }
+  }*/
 
   void _openAboutPage() {
     Navigator.of(context).push(
@@ -110,6 +132,15 @@ class _ConfigPageState extends State<ConfigPage> {
                   leading: const Icon(Icons.info, color: Colors.deepPurple),
                   title: const Text('Acerca de la app'),
                   onTap: _openAboutPage,
+                ),
+              ),
+              Card(
+                margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                elevation: 4,
+                child: ListTile(
+                  leading: const Icon(Icons.link, color: Colors.deepPurple),
+                  title: const Text('Link a Jokes API'),
+                  onTap: () => _launchInBrowser(Uri.parse('https://v2.jokeapi.dev/')),
                 ),
               ),
             ],

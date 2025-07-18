@@ -1,0 +1,3 @@
+La jokeAPI tiene una forma de presentar las URL de manera customizable dándole al usuario la capacidad de solicitar lo que se necesite.
+Un ejemplo de esto es que uno puede solicitar entre varias categorías de bromas, por ejemplo, de terror, de programación, de humor negro, etc. de igual forma uno puede pedir bromas de cualquiera de las categorías diferentes.
+La api tiene la opción de dar entre 1 a 10 bromas a la vez, lo cual no es lo ideal pero se trabajara con eso.
